@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_learning/data/helpers/car_helper.dart';
 import 'package:flutter_learning/data/models/car_model.dart';
+import 'package:provider/provider.dart';
 
 class AddCarWidget extends StatelessWidget {
   const AddCarWidget({
@@ -213,7 +214,8 @@ class AddCarWidget extends StatelessWidget {
                               description: carDescription.text,
                               imageUrl: carImage.text,
                             );
-                            CarHelper().addCar(car);
+                            Provider.of<CarHelper>(context, listen: false)
+                                .addCar(car);
                             Navigator.pop(context);
                           }
                         },

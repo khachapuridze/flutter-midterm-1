@@ -1,17 +1,22 @@
-import 'package:flutter_learning/data/models/dummy_data.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_learning/data/models/car_model.dart';
 
-class CarHelper {
+class CarHelper extends ChangeNotifier {
+  List<Car> carList = [];
   void addCar(Car car) {
-    DUMMY_DATA.insert(0, car);
+    carList.insert(0, car);
+    notifyListeners();
   }
 
   void removeCar(Car car) {
     // DUMMY_DATA.removeWhere((element) => element.id == id);
-    DUMMY_DATA.remove(car);
+    carList.remove(car);
+    notifyListeners();
   }
 
   void editCar(Car car, int index) {
-    DUMMY_DATA.replaceRange(index, index + 1, [car]);
+    debugPrint('movieTitle: $car index-$index');
+    carList.replaceRange(index, index + 1, [car]);
+    notifyListeners();
   }
 }

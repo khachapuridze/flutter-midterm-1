@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_learning/data/helpers/car_helper.dart';
 import 'package:flutter_learning/data/models/car_model.dart';
+import 'package:provider/provider.dart';
 
 class EditCarWidget extends StatelessWidget {
   const EditCarWidget({
@@ -14,7 +15,8 @@ class EditCarWidget extends StatelessWidget {
     @required this.carYear,
     @required this.carImage,
     @required this.index,
-  }) : _formKey = formKey, super(key: key);
+  })  : _formKey = formKey,
+        super(key: key);
 
   final GlobalKey<FormState> _formKey;
   final TextEditingController carId;
@@ -45,8 +47,7 @@ class EditCarWidget extends StatelessWidget {
                       decoration: InputDecoration(
                         labelText: 'Id',
                         hintText: "enter id",
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 10.0),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
                         fillColor: Colors.white,
                         filled: true,
                         enabledBorder: OutlineInputBorder(
@@ -74,8 +75,7 @@ class EditCarWidget extends StatelessWidget {
                       decoration: InputDecoration(
                         labelText: 'Brand',
                         hintText: "Enter Car Brand",
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 10.0),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
                         fillColor: Colors.white,
                         filled: true,
                         enabledBorder: OutlineInputBorder(
@@ -100,8 +100,7 @@ class EditCarWidget extends StatelessWidget {
                       decoration: InputDecoration(
                         labelText: 'Model',
                         hintText: "Enter Car Model",
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 10.0),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
                         fillColor: Colors.white,
                         filled: true,
                         enabledBorder: OutlineInputBorder(
@@ -126,8 +125,7 @@ class EditCarWidget extends StatelessWidget {
                       decoration: InputDecoration(
                         labelText: 'Description',
                         hintText: "Enter Car Description",
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 10.0),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
                         fillColor: Colors.white,
                         filled: true,
                         enabledBorder: OutlineInputBorder(
@@ -152,8 +150,7 @@ class EditCarWidget extends StatelessWidget {
                       decoration: InputDecoration(
                         labelText: 'Year',
                         hintText: "Enter Car Year",
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 10.0),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
                         fillColor: Colors.white,
                         filled: true,
                         enabledBorder: OutlineInputBorder(
@@ -177,8 +174,7 @@ class EditCarWidget extends StatelessWidget {
                       decoration: InputDecoration(
                         labelText: 'Image Url',
                         hintText: "Enter Car Image",
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 10.0),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
                         fillColor: Colors.white,
                         filled: true,
                         enabledBorder: OutlineInputBorder(
@@ -226,7 +222,8 @@ class EditCarWidget extends StatelessWidget {
                               description: carDescription.text,
                               imageUrl: carImage.text,
                             );
-                            CarHelper().editCar(car, index);
+                            Provider.of<CarHelper>(context, listen: false)
+                                .editCar(car, index);
                             Navigator.pop(context);
                           }
                         },

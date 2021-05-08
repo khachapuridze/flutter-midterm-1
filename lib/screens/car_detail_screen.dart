@@ -3,7 +3,6 @@ import 'package:flutter_learning/data/helpers/car_helper.dart';
 import 'package:flutter_learning/data/models/car_model.dart';
 import 'package:flutter_learning/widgets/car_detail_widget.dart';
 
-import 'edit_car_screen.dart';
 
 class CarDetailScreen extends StatelessWidget {
   static const routeName = "/car-detail";

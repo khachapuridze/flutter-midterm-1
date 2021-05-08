@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_learning/data/models/car_model.dart';
-import 'package:flutter_learning/data/models/dummy_data.dart';
+import 'package:flutter_learning/data/helpers/car_helper.dart';
 import 'package:flutter_learning/screens/add_car_screen.dart';
 import 'package:flutter_learning/screens/car_detail_screen.dart';
 import 'package:flutter_learning/widgets/main_list_item.dart';
+import 'package:provider/provider.dart';
 
 import 'edit_car_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  List<Car> carList = DUMMY_DATA;
-
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,41 +21,42 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             onPressed: () {
               // do something
-              Navigator.pushNamed(context, AddCarScreen.routeName).then((_) {
-                setState(() {});
-              });
+              Navigator.pushNamed(context, AddCarScreen.routeName);
             },
           ),
         ],
       ),
-      body: ListView.builder(
-        itemBuilder: (item, index) {
-          var car = carList[index];
-          return GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, CarDetailScreen.routeName,
-                      arguments: car)
-                  .then((_) {
-                setState(() {});
-              });
-            },
-            onLongPress: () {
-              Navigator.pushNamed(
-                context,
-                EditCarScreen.routeName,
-                arguments: {"car": car},
-              );
-            },
-            child: MainListItem(
-              imageUrl: car.imageUrl,
-              brand: car.brand,
-              model: car.model.toString(),
-              year: car.year.toString(),
-              description: car.description.toString(),
-            ),
-          );
-        },
-        itemCount: carList.length,
+      body: Container(
+        child: Consumer<CarHelper>(
+          builder: (BuildContext context, carHelper, child) {
+            return ListView.builder(
+              itemBuilder: (item, index) {
+                var car = carHelper.carList[index];
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, CarDetailScreen.routeName,
+                        arguments: car);
+                  },
+                  onLongPress: () {
+                    Navigator.pushNamed(
+                      context,
+                      EditCarScreen.routeName,
+                      arguments: {"car": car, "index": index},
+                    );
+                  },
+                  child: MainListItem(
+                    imageUrl: car.imageUrl,
+                    brand: car.brand,
+                    model: car.model.toString(),
+                    year: car.year.toString(),
+                    description: car.description.toString(),
+                  ),
+                );
+              },
+              itemCount: carHelper.carList.length,
+            );
+          },
+        ),
       ),
     );
   }
